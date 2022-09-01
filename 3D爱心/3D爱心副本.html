@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D爱心</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #bfa;
+      overflow: hidden;
+    }
+
+    .container {
+      /* 垂直居中 */
+      position: relative;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+      width: 200px;
+      height: 260px;
+      transform-style: preserve-3d;
+      /* transform-origin:xais,yais,zais */
+      transform-origin: 50% 130%;
+      animation: rotate 7s linear infinite;
+    }
+
+    .square {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      transform-style: preserve-3d;
+      transform: translateX(50px) translateY(300px) translateZ(50px);
+    }
+
+    .square div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100px;
+      height: 100px;
+    }
+
+    img {
+      width: 100px;
+      height: 100px;
+    }
+
+    /* 90是顺时针旋转,-90是逆时针旋转. */
+    .square div:nth-child(1) {
+      top: 100px;
+      transform-origin: top;
+      transform: rotateX(-90deg);
+    }
+
+    .square div:nth-child(2) {
+      left: 100px;
+      transform-origin: left;
+      transform: rotateY(90deg);
+    }
+
+    .square div:nth-child(3) {
+      left: -100px;
+      transform-origin: right;
+      transform: rotateY(-90deg);
+    }
+
+    .square div:nth-child(4) {
+      top: -100px;
+      transform-origin: bottom;
+      transform: rotateX(90deg);
+    }
+
+    .square div:nth-child(6) {
+      top: 0;
+      transform: translateZ(-100px);
+    }
+
+    .heart {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 260px;
+      border: 2px solid deeppink;
+      margin: 200px auto;
+      border-bottom: 0;
+      border-left: 0;
+      /* 绘制心形 */
+      /* border-radius: 50% 50% 0%/50% 50% 0%; */
+      border-radius: 50% 50% 0%/50% 50% 0%;
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+      }
+
+      to {
+        transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="square">
+      <div><img src="./images/1.jpg"></div>
+      <div><img src="./images/2.jpg"></div>
+      <div><img src="./images/3.jpg"></div>
+      <div><img src="./images/4.jpg"></div>
+      <div><img src="./images/5.jpg"></div>
+      <div><img src="./images/6.jpg"></div>
+    </div>
+  </div>
+
+  <script>
+    var container = document.getElementsByClassName('container')[0];
+    for (var i = 0; i < 36; i++) {
+      var heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.transform = "rotateY(" + i * 10 + "deg) rotateZ(45deg) translateX(30px)";
+      container.appendChild(heart);
+    }
+  </script>
+</body>
+
+</html>
