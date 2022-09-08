@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="./icon/iconfont.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-image: url(./星空.jpeg);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    div {
+      position: fixed;
+      left: 0;
+      top: 0;
+      transition: 9s;
+      cursor: pointer;
+      text-shadow:
+        0 0 5px rgba(231, 156, 156, 0.05),
+        0 -1px 3px rgba(231, 156, 156, 0.2),
+        0 9px 9px rgba(231, 156, 156, 0.3),
+        0 12px 12px rgba(231, 156, 156, 0.3),
+        0 15px 15px rgba(231, 156, 156, 0.3);
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    // 获取随机颜色(十六进制)
+    function getColor() {
+      let color = "#";
+      let arr = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"];
+      for (let i = 0; i < 6; i++) {
+        let num = parseInt(Math.random() * 16);
+        color += arr[num]
+      }
+      return color;
+    }
+
+    function createStar() {
+      //制造小星星
+      let star = document.createElement("div");
+      star.setAttribute("class", "iconfont icon-xingxing");
+      star.style.color = getColor();
+      //2.设置开始状态(x,y坐标,和随机大小)
+      let start = {
+        // 随机宽度
+        x: Math.random() * 2 * window.innerWidth - window.innerWidth,
+        y: 0,
+        size: Math.random() * 9
+      };
+      // 设置过渡
+      star.style.transform =
+        `translate(${start.x}px,${start.y}px) 
+      scale(${start.size})`;
+
+      document.body.appendChild(star);
+      // 结束状态
+      let end = {
+        x: Math.random() * 2 * window.innerWidth - window.innerWidth,
+        y: window.innerHeight,
+        size: Math.random() * 9
+      };
+      // 获取偏移高度
+      star.offsetHeight;
+      star.style.transform =
+        `translate(${end.x}px,${end.y}px) 
+      scale(${end.size})`;
+      // 删除小星星
+      star.addEventListener("transitionend", function () {
+        // console.log("星星坠落了")
+        star.remove();
+      })
+
+      star.addEventListener("click", function () {
+        star.remove();
+      })
+    };
+    // 控制流星雨的开始/暂停.
+    let btn = document.createElement("button");
+    btn.innerText = "开始/暂停流星雨"
+    document.body.appendChild(btn);
+    let control = false;
+    let timer;
+    function watchStar() {
+      timer = setInterval(createStar, 150);
+    }
+    btn.addEventListener("click", function () {
+      if (control) {
+        clearInterval(timer)
+        control = false;
+      } else {
+        watchStar();
+        control = true;
+      }
+    })
+  </script>
+</body>
+
+</html>
